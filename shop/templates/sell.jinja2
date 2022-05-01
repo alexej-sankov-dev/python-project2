@@ -1,0 +1,48 @@
+{% extends 'base.jinja2' %}
+
+{% block title %}
+<title>Sell</title>
+{% endblock %}
+
+{% block head %}
+<h1 class="display-4 fw-normal">Sell</h1>
+<p class="fs-5 text-muted">Sell your items from games and earn money!</p>
+{% endblock %}
+
+
+
+{% block body %}
+<div class="container">
+    <h4>Requests</h3>
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product</th>
+            <th scope="col">Payout</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Client Contact</th>
+            <th scope="col">Complete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for o in data %}
+                <tr id={{ o[0] }}>
+                <th scope="row">{{ o[0] }}</th>
+                <td>{{ o[1] }}</td>
+                <td><span class="payout">{{ o[2] }}</span>$</td>
+                <td>{{ o[3] }}</td>
+                <td class="email">{{ o[4] }}</td>
+                <td>
+                    <form method="post">
+                            <input type="hidden" id="orderid" name="orderid" value={{ o[5] }}>
+                            <button type="submit" class="btn btn-primary">Complete</button>
+                    </form>
+                </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

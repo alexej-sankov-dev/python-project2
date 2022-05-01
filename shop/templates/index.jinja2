@@ -1,0 +1,42 @@
+{% extends 'base.jinja2' %}
+
+{% block title %}
+<title>Online Shop</title>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+{% endblock %}
+
+{% block head %}
+<h1 class="display-4 fw-normal">Home</h1>
+<p class="fs-5 text-muted">Best shop in the world!</p>
+{% endblock %}
+
+
+
+{% block body %}
+<main>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for p in products %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src={{url_for('static', filename=p.imageurl)}} class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ p.title }}</h5>
+                        <p class="card-text">{{ p.description }}</p>
+                        <div class="card-text">Type: {{ p.type }}</div>
+                        <div class="card-text">Game: {{ p.game }}</div>
+                        <div class="card-text">Stock: {{ p.stock }}</div>
+                        <div class="card-text">Price: <span id={{ 'price%d' % p.productid }}>{{ p.price }}</span>$</div>
+                        <form class="form-inline" method="post" id={{ 'form%d' % p.productid }}>
+                            <div class="form-group mx-sm-1 mb-1">
+                                <input type="hidden" id="productid" name="productid" value={{ p.productid }}>
+                                <input type="number" class="form-control product-buy-input" id={{ 'amount%d' % p.productid }} name="amount" value=1>
+                                <button type="submit" class="btn btn-primary product-buy-btn">Buy</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}
