@@ -282,6 +282,8 @@ def sell():
         for i, o in enumerate(proc_orders):
             p = Product.query.get(o.productid)
             u = User.query.get(o.userid)
+            if u is None:
+                continue
             d = (i+1, p.title, p.price*o.amount*0.6, o.amount, u.email, o.orderid)
             data_proc_orders.append(d)
         return render_template('sell.jinja2', data=data_proc_orders)
